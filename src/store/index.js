@@ -120,7 +120,7 @@ export const store = new Vuex.Store({
         content: payload.content,
         date: payload.date
       }
-      firebase.database().ref('chats').child(chatID).child('messages').push(message)
+      firebase.database().ref('messages').child(chatID).child('messages').push(message)
         .then(
           (data) => {
           }

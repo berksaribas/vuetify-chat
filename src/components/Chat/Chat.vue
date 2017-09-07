@@ -35,7 +35,7 @@
       let chatID = this.id
       let that = this
       console.log(chatID)
-      firebase.database().ref('chats').child(chatID).child('messages').limitToLast(20).on('child_added', function (snapshot) {
+      firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20).on('child_added', function (snapshot) {
         let message = snapshot.val()
         /*eslint-disable */
         var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
