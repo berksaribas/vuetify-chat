@@ -1,6 +1,10 @@
 # vuetify-chat
 
 > A chat built with Vue + Vuex + Vuetify + Firebase
+## Features
+* Basic authentication with Firebase
+* Create chat rooms, join them
+* Use emoji-picker to express your emotions.
 
 ## Build Setup
 
