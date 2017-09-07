@@ -1,6 +1,6 @@
-# mutfak-chat
+# vuetify-chat
 
-> A chat with material design built with Vue + Firebase
+> A chat built with Vue + Vuex + Vuetify + Firebase
 
 ## Build Setup
 
