@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Chat from '@/components/Chat/Chat'
-import Chats from '@/components/Chat/Chats'
 import Create from '@/components/Chat/Create'
 import Profile from '@/components/User/Profile'
 import Signup from '@/components/User/Signup'
@@ -16,7 +15,8 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      beforeEnter: AuthGuard
     },
     {
       path: '/login',
@@ -38,12 +38,6 @@ export default new Router({
       name: 'Chat',
       component: Chat,
       props: true,
-      beforeEnter: AuthGuard
-    },
-    {
-      path: '/chats',
-      name: 'Chats',
-      component: Chats,
       beforeEnter: AuthGuard
     },
     {
