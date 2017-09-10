@@ -56,7 +56,6 @@
         ]
         if (this.userIsAuthenticated) {
           items = [
-            {icon: 'chat', title: 'Chats', route: '/chats'},
             {icon: 'chat', title: 'Create a Chat', route: '/create'}
           ]
         }
