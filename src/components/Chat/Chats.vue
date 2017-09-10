@@ -13,9 +13,11 @@
 </template>
 
 <script>
-  export default {
+  export default{
     data () {
-      return {}
+      return {
+        recentChats: 'Recent Chats'
+      }
     },
     created () {
       this.$store.dispatch('loadChats')
