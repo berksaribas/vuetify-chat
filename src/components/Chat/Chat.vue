@@ -1,6 +1,6 @@
 <template>
   <v-layout row>
-    <v-flex xs12 sm12>
+    <v-flex xs12 sm10 order-xs2 style="position: relative;">
       <div class="chat-container">
         <message :messages="messages" @imageLoad="scrollToEnd"></message>
       </div>
@@ -12,12 +12,16 @@
         </v-btn>
       </div>
     </v-flex>
+    <v-flex sm2 order-xs1>
+      <chats></chats>
+    </v-flex>
   </v-layout>
 </template>
 
 <script>
   import Message from './Message.vue'
   import EmojiPicker from './EmojiPicker.vue'
+  import Chats from './Chats.vue'
   import * as firebase from 'firebase'
 
   export default {
@@ -25,35 +29,21 @@
       return {
         content: '',
         chatMessages: [],
-        emojiPanel: false
+        emojiPanel: false,
+        currentRef: {}
       }
     },
     props: [
       'id'
     ],
     mounted () {
-      let chatID = this.id
-      let that = this
-      console.log(chatID)
-      firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20).on('child_added', function (snapshot) {
-        let message = snapshot.val()
-        /*eslint-disable */
-        var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-        /*eslint-enable */
-        message.content = message.content
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;')
-        message.content = message.content.replace(urlPattern, "<a href='$1'>$1</a>")
-        that.chatMessages.push(that.processMessage(message))
-      })
+      this.loadChat()
       this.$store.dispatch('loadOnlineUsers')
     },
     components: {
       'message': Message,
-      'emoji-picker': EmojiPicker
+      'emoji-picker': EmojiPicker,
+      'chats': Chats
     },
     computed: {
       messages () {
@@ -61,16 +51,44 @@
       },
       username () {
         return this.$store.getters.user.username
+      },
+      onChildAdded () {
+        var that = this
+        var onChildAdded = function (snapshot) {
+          let message = snapshot.val()
+          /*eslint-disable */
+          var urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+          /*eslint-enable */
+          message.content = message.content
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;')
+          message.content = message.content.replace(urlPattern, "<a href='$1'>$1</a>")
+          that.chatMessages.push(that.processMessage(message))
+        }
+        return onChildAdded
       }
     },
     watch: {
-      'messages': function (value) {
+      'chatMessages': function (value) {
         this.$nextTick(() => {
           this.scrollToEnd()
         })
+      },
+      '$route.params.id' (newId, oldId) {
+        this.currentRef.off('child_added', this.onChildAdded)
+        this.loadChat()
       }
     },
     methods: {
+      loadChat () {
+        this.chatMessages = []
+        let chatID = this.id
+        this.currentRef = firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20)
+        this.currentRef.on('child_added', this.onChildAdded)
+      },
       processMessage (message) {
         /*eslint-disable */
         var imageRegex = /([^\s\']+).(?:jpg|jpeg|gif|png)/i
@@ -106,21 +124,21 @@
 
 <style>
   .typer{
-    position: absolute;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     bottom: 0;
-    height: 5rem;
+    height: 4.9rem;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 -5px 10px -5px rgba(0,0,0,.2);
   }
   .typer .emoji-panel{
-    margin-left: auto;
+    /*margin-right: 15px;*/
   }
   .typer input[type=text]{
     position: absolute;
-    left: 2rem;
+    left: 2.5rem;
     padding: 1rem;
     width: 80%;
     background-color: transparent;
