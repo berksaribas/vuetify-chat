@@ -1,12 +1,15 @@
 <template>
   <div class="emoji-picker" v-if="show">
-    <div class="emoji-header">
-      Emoji Picker
-      <div class="emoji-close" @click="closePicker">Kapat</div>
-    </div>
-    <div class="emoji-content">
-      <emoji v-for="emoji in emojis" :emoji="emoji" @click="onEmojiClick"></emoji>
-    </div>
+    <v-card height="300px" v-if="show">
+      <v-card-title class="blue white--text">
+        <span class="headline">Emoji Picker</span>
+      </v-card-title>
+      <v-card-text>
+        <div class="emoji-content">
+          <emoji v-for="emoji in emojis" :emoji="emoji" @click="onEmojiClick"></emoji>
+        </div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -48,7 +51,7 @@
     background: white;
     position: absolute;
     bottom: 5rem;
-    right: 0;
+    left: 0;
     width: 200px;
     user-select: none;
   }
