@@ -84,10 +84,12 @@
     },
     methods: {
       loadChat () {
-        this.chatMessages = []
-        let chatID = this.id
-        this.currentRef = firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20)
-        this.currentRef.on('child_added', this.onChildAdded)
+        if (this.id !== undefined) {
+          this.chatMessages = []
+          let chatID = this.id
+          this.currentRef = firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20)
+          this.currentRef.on('child_added', this.onChildAdded)
+        }
       },
       processMessage (message) {
         /*eslint-disable */
@@ -152,6 +154,9 @@
     overflow-y: auto;
     padding: 10px;
     background-color: #f2f2f2;
+  }
+  .message{
+    margin-bottom: 3px;
   }
   .message.own{
     text-align: right;

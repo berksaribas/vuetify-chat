@@ -25,7 +25,7 @@
     <v-toolbar class="light-blue darken-1">
       <v-toolbar-side-icon @click.native.stop="drawerToggle = !drawerToggle"></v-toolbar-side-icon>
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
+        <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items v-for="item in menuItems">

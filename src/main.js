@@ -23,11 +23,11 @@ new Vue({
   render: h => h(App),
   created () {
     firebase.initializeApp({
-      apiKey: '',
-      authDomain: '',
-      databaseURL: '',
-      projectId: '',
-      storageBucket: ''
+      apiKey: 'AIzaSyBiqUbF0rN5LUD9G9msHN4xHF3f00MpOFE',
+      authDomain: 'mutfak-chat.firebaseapp.com',
+      databaseURL: 'https://mutfak-chat.firebaseio.com',
+      projectId: 'mutfak-chat',
+      storageBucket: 'mutfak-chat.appspot.com'
     })
   }
 })
