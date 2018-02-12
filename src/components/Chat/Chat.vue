@@ -6,7 +6,7 @@
       </div>
       <emoji-picker :show="emojiPanel" @close="toggleEmojiPanel" @click="addMessage"></emoji-picker>
       <div class="typer">
-        <input type="text" placeholder="İletinizi buraya yazın" v-on:keyup.enter="sendMessage" v-model="content">
+        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
         <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
           <v-icon>mood</v-icon>
         </v-btn>
