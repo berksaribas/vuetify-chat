@@ -12,7 +12,7 @@
         </v-btn>
       </div>
     </v-flex>
-    <v-flex sm2 order-xs1>
+    <v-flex sm2 order-xs1 class="scrollable">
       <chats></chats>
     </v-flex>
   </v-layout>
@@ -125,6 +125,10 @@
 </script>
 
 <style>
+  .scrollable {
+    overflow-y: auto;
+    height: 100vh;
+  }
   .typer{
     box-sizing: border-box;
     display: flex;
