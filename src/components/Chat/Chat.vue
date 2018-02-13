@@ -127,7 +127,7 @@
 <style>
   .scrollable {
     overflow-y: auto;
-    height: 100vh;
+    height: 90vh;
   }
   .typer{
     box-sizing: border-box;
