@@ -149,6 +149,9 @@ export const store = new Vuex.Store({
       var updates = {}
       updates['/chats/' + newPostKey] = {name: payload.chatName}
       firebase.database().ref().update(updates)
+      return new Promise((resolve, reject) => {
+        resolve(newPostKey)
+      })
     },
     clearError ({commit}) {
       commit('clearError')

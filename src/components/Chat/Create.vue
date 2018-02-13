@@ -29,7 +29,11 @@
     methods: {
       createChat () {
         if (this.chatName !== '') {
-          this.$store.dispatch('createChat', { chatName: this.chatName })
+          let key = 0
+          this.$store.dispatch('createChat', { chatName: this.chatName }).then((value) => {
+            key = value
+            this.$router.push('/chat/' + key)
+          })
         }
       }
     }
