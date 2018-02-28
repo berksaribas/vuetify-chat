@@ -6,6 +6,9 @@
 * Create chat rooms, join them
 * Use emoji-picker to express your emotions.
 
+## Live Demo
+https://mutfak-chat.firebaseapp.com
+
 ## Build Setup
 
 ``` bash
