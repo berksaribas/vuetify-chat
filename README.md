@@ -1,6 +1,6 @@
-# vuetify-chat
+![alt text](https://berksaribas.github.io/img/vuetifychat.png)
 
-> A chat built with Vue + Vuex + Vuetify + Firebase
+A chat built with Vue + Vuex + Vuetify + Firebase.
 ## Features
 * Basic authentication with Firebase
 * Create chat rooms, join them
