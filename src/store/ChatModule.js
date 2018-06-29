@@ -37,8 +37,8 @@ const ChatModule = {
       })
     },
     createChat ({commit}, payload) {
-      var newPostKey = firebase.database().ref().child('chats').push().key
-      var updates = {}
+      let newPostKey = firebase.database().ref().child('chats').push().key
+      let updates = {}
       updates['/chats/' + newPostKey] = {name: payload.chatName}
       firebase.database().ref().update(updates)
       return new Promise((resolve, reject) => {
