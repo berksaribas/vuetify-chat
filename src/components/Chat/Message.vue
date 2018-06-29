@@ -32,7 +32,7 @@
     },
     methods: {
       imageLoad () {
-        this.$emit('imageLoad')
+        // this.$emit('imageLoad')
       }
     }
   }
