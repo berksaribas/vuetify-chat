@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer temporary v-model="drawerToggle">
+    <v-navigation-drawer absolute temporary v-model="drawerToggle">
       <v-list>
         <v-list-tile>
           <v-list-tile-action>
@@ -23,7 +23,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar class="light-blue darken-1">
-      <v-toolbar-side-icon @click.native.stop="drawerToggle = !drawerToggle"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawerToggle = !drawerToggle"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
       </v-toolbar-title>

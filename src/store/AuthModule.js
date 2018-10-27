@@ -10,7 +10,7 @@ const AuthModule = {
       const userListRef = firebase.database().ref('presence')
       const myUserRef = userListRef.push()
 
-      firebase.database().ref('.info/connected')
+      firebase.database().ref('info/connected')
         .on(
           'value', function (snap) {
             if (snap.val()) {
@@ -35,15 +35,15 @@ const AuthModule = {
       commit('clearError')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
-          user => {
-            firebase.database().ref('users').child(user.uid).set({
+          response => {
+            firebase.database().ref('users').child(response.user.uid).set({
               name: payload.username
             })
               .then(
                 message => {
                   commit('setLoading', false)
                   const newUser = {
-                    id: user.uid,
+                    id: response.user.uid,
                     username: payload.username
                   }
                   commit('setUser', newUser)
@@ -67,13 +67,14 @@ const AuthModule = {
     signUserIn ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
+      console.log(payload)
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
-          user => {
-            firebase.database().ref('users').child(user.uid).once('value', function (data) {
+          response => {
+            firebase.database().ref('users').child(response.user.uid).once('value', function (data) {
               commit('setLoading', false)
               const newUser = {
-                id: user.uid,
+                id: response.user.uid,
                 username: data.val().name
               }
               commit('setUser', newUser)
