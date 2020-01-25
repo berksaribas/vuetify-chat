@@ -1,24 +1,19 @@
 <template>
   <v-list subheader>
-    <v-subheader>Recent Chats</v-subheader>
-    <v-list-tile avatar v-for="(chat, index) in chats" v-bind:key="chat.name" :to="/chat/ + index">
-      <v-list-tile-content>
-        <v-list-tile-title v-html="chat.name"></v-list-tile-title>
-      </v-list-tile-content>
-      <v-list-tile-action>
-        <v-icon>chat_bubble</v-icon>
-      </v-list-tile-action>
-    </v-list-tile>
+    <v-subheader>Your Chats</v-subheader>
+    <v-list-item avatar v-for="(chat, index) in chats" v-bind:key="chat.name" :to="/chat/ + index">
+      <v-list-item-content>
+        <v-list-item-title v-html="chat.name"></v-list-item-title>
+      </v-list-item-content>
+      <v-list-item-action>
+        <v-icon>mdi-chat</v-icon>
+      </v-list-item-action>
+    </v-list-item>
   </v-list>
 </template>
 
 <script>
   export default{
-    data () {
-      return {
-        recentChats: 'Recent Chats'
-      }
-    },
     created () {
       this.$store.dispatch('loadChats')
     },

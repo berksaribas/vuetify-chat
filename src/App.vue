@@ -1,29 +1,29 @@
 <template>
   <v-app>
-    <v-navigation-drawer temporary v-model="drawerToggle">
+    <v-navigation-drawer absolute temporary v-model="drawerToggle">
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>supervisor_account</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
+        <v-list-item>
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
             Online Users {{onlineUsers[0]}}
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
       <v-list >
-        <v-list-tile avatar v-for="user in onlineUsers[1]" v-bind:key="user.user.username">
-          <v-list-tile-avatar>
+        <v-list-item avatar v-for="user in onlineUsers[1]" v-bind:key="user.user.username">
+          <v-list-item-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg" />
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>{{user.user.username}}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{user.user.username}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar class="light-blue darken-1">
-      <v-toolbar-side-icon @click.native.stop="drawerToggle = !drawerToggle"></v-toolbar-side-icon>
+      <v-app-bar-nav-icon @click.native.stop="drawerToggle = !drawerToggle"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
       </v-toolbar-title>
@@ -35,9 +35,10 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <main>
+    <v-content>
+
       <router-view></router-view>
-    </main>
+    </v-content>
   </v-app>
 </template>
 
@@ -51,12 +52,12 @@
     computed: {
       menuItems () {
         let items = [
-          { icon: 'face', title: 'Register', route: '/register' },
-          { icon: 'lock_open', title: 'Login', route: '/login' }
+          { icon: 'mdi-face', title: 'Register', route: '/register' },
+          { icon: 'mdi-lock-open', title: 'Login', route: '/login' }
         ]
         if (this.userIsAuthenticated) {
           items = [
-            {icon: 'chat', title: 'Create a Chat', route: '/create'}
+            {icon: 'mdi-forum', title: 'Create a Chat', route: '/create'}
           ]
         }
         return items
