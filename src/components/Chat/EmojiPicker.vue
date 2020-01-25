@@ -6,7 +6,7 @@
       </v-card-title>
       <v-card-text>
         <div class="emoji-content">
-          <emoji v-for="emoji in emojis" :emoji="emoji" @click="onEmojiClick"></emoji>
+          <emoji v-for="emoji in emojis" v-bind:key="emoji.key" :emoji="emoji" @click="onEmojiClick"></emoji>
         </div>
       </v-card-text>
     </v-card>

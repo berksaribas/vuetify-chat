@@ -182,9 +182,6 @@
     background-color: #fff;
     box-shadow: 0 -5px 10px -5px rgba(0,0,0,.2);
   }
-  .typer .emoji-panel{
-    /*margin-right: 15px;*/
-  }
   .typer input[type=text]{
     position: absolute;
     left: 2.5rem;

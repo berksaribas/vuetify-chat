@@ -1,7 +1,7 @@
 <template>
   <v-list subheader>
     <v-subheader>Recent Chats</v-subheader>
-    <v-list-tile avatar v-for="(chat, index) in chats" v-bind:key="chat.name" @click="" :to="/chat/ + index">
+    <v-list-tile avatar v-for="(chat, index) in chats" v-bind:key="chat.name" :to="/chat/ + index">
       <v-list-tile-content>
         <v-list-tile-title v-html="chat.name"></v-list-tile-title>
       </v-list-tile-content>

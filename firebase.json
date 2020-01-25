@@ -1,8 +1,0 @@
-{
-  "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json"
-    ]
-  }
-}

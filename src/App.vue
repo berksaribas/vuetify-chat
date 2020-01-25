@@ -12,7 +12,7 @@
         </v-list-tile>
       </v-list>
       <v-list >
-        <v-list-tile avatar v-for="user in onlineUsers[1]" @click="">
+        <v-list-tile avatar v-for="user in onlineUsers[1]" v-bind:key="user.user.username">
           <v-list-tile-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg" />
           </v-list-tile-avatar>
@@ -28,8 +28,8 @@
         <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items v-for="item in menuItems">
-        <v-btn flat :key="item.title" :to="item.route">
+      <v-toolbar-items v-for="item in menuItems" v-bind:key="item.route">
+        <v-btn text :key="item.title" :to="item.route">
           <v-icon left>{{ item.icon }}</v-icon>
           <div class="hidden-xs-only">{{ item.title }}</div>
         </v-btn>
@@ -65,13 +65,8 @@
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       },
       onlineUsers () {
-        console.log(this.$store.getters.onlineUsers)
         return this.$store.getters.onlineUsers
       }
     }
   }
 </script>
-
-<style lang="stylus">
-  @import './stylus/main'
-</style>
