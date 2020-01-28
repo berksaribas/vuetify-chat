@@ -1,27 +1,29 @@
 <template>
-  <v-layout row>
-    <v-flex xs12 sm10 order-xs2 style="position: relative;">
-      <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
-        <message :messages="messages" @imageLoad="scrollToEnd"></message>
-      </div>
-      <emoji-picker :show="emojiPanel" @close="toggleEmojiPanel" @click="addMessage"></emoji-picker>
-      <div class="typer">
-        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
-        <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
-          <v-icon>mdi-emoticon-outline</v-icon>
-        </v-btn>
-      </div>
-    </v-flex>
-    <v-flex sm2 order-xs1 class="scrollable">
-      <chats></chats>
-    </v-flex>
-  </v-layout>
+  <v-container fluid style="padding: 0;">
+    <v-row no-gutters>
+      <v-col sm="2" class="scrollable">
+        <chats></chats>
+      </v-col>
+      <v-col sm="10" style="position: relative;">
+        <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
+          <message :messages="messages" @imageLoad="scrollToEnd"></message>
+        </div>
+        <emoji-picker :show="emojiPanel" @close="toggleEmojiPanel" @click="addEmojiToMessage"></emoji-picker>
+        <div class="typer">
+          <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
+          <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
+            <v-icon>mdi-emoticon-outline</v-icon>
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-  import Message from './Message.vue'
-  import EmojiPicker from './EmojiPicker.vue'
-  import Chats from './Chats.vue'
+  import Message from './parts/Message.vue'
+  import EmojiPicker from './parts/EmojiPicker.vue'
+  import Chats from './parts/Chats.vue'
   import * as firebase from 'firebase'
 
   export default {
@@ -54,9 +56,9 @@
       username () {
         return this.$store.getters.user.username
       },
-      onChildAdded () {
+      onNewMessageAdded () {
         const that = this
-        let onChildAdded = function (snapshot, newMessage = true) {
+        let onNewMessageAdded = function (snapshot, newMessage = true) {
           let message = snapshot.val()
           message.key = snapshot.key
           /*eslint-disable */
@@ -77,12 +79,12 @@
             that.scrollToEnd()
           }
         }
-        return onChildAdded
+        return onNewMessageAdded
       }
     },
     watch: {
       '$route.params.id' (newId, oldId) {
-        this.currentRef.off('child_added', this.onChildAdded)
+        this.currentRef.off('child_added', this.onNewMessageAdded)
         this.loadChat()
       }
     },
@@ -94,7 +96,7 @@
           this.chatMessages = []
           let chatID = this.id
           this.currentRef = firebase.database().ref('messages').child(chatID).child('messages').limitToLast(20)
-          this.currentRef.on('child_added', this.onChildAdded)
+          this.currentRef.on('child_added', this.onNewMessageAdded)
         }
       },
       onScroll () {
@@ -116,9 +118,8 @@
                 tempArray.push(item)
               })
               if (tempArray[0].key === tempArray[1].key) return
-              console.log(tempArray)
               tempArray.reverse()
-              tempArray.forEach(function (child) { that.onChildAdded(child, false) })
+              tempArray.forEach(function (child) { that.onNewMessageAdded(child, false) })
               that.loading = false
             }
           )
@@ -157,7 +158,7 @@
           container.scrollTop = difference
         })
       },
-      addMessage (emoji) {
+      addEmojiToMessage (emoji) {
         this.content += emoji.value
       },
       toggleEmojiPanel () {

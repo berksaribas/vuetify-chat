@@ -22,7 +22,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar class="light-blue darken-1">
+    <v-app-bar app class="light-blue darken-1">
       <v-app-bar-nav-icon @click.native.stop="drawerToggle = !drawerToggle"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
@@ -34,9 +34,8 @@
           <div class="hidden-xs-only">{{ item.title }}</div>
         </v-btn>
       </v-toolbar-items>
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
-
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -57,7 +56,8 @@
         ]
         if (this.userIsAuthenticated) {
           items = [
-            {icon: 'mdi-forum', title: 'Create a Chat', route: '/create'}
+            {icon: 'mdi-forum', title: 'Create a Chat', route: '/create'},
+            {icon: "mdi-chat", title: 'Chat List', route: '/discover'}
           ]
         }
         return items

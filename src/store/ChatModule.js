@@ -2,18 +2,16 @@ import * as firebase from 'firebase'
 
 const ChatModule = {
   state: {
-    chats: []
+    chats: {}
   },
   mutations: {
-    setMessagesEmpty (state) {
-      state.messages = []
-    },
     setChats (state, payload) {
+      payload["0"] = {name: "Default"}
       state.chats = payload
     }
   },
   actions: {
-    sendMessage ({commit}, payload) {
+    sendMessage (context, payload) {
       let chatID = payload.chatID
       const message = {
         user: payload.username,
@@ -31,25 +29,25 @@ const ChatModule = {
           }
         )
     },
-    loadChats ({commit}) {
-      firebase.database().ref('chats').on('value', function (snapshot) {
-        commit('setChats', snapshot.val())
-      })
-    },
-    createChat ({commit}, payload) {
-      let newPostKey = firebase.database().ref().child('chats').push().key
-      let updates = {}
-      updates['/chats/' + newPostKey] = {name: payload.chatName}
-      firebase.database().ref().update(updates)
-      return new Promise((resolve, reject) => {
-        resolve(newPostKey)
+    loadUserChats (context) {
+      let user = context.getters.user
+      firebase.database().ref('users').child(user.id).child('chats').orderByChild("timestamp").once("value", function(snapshot) {
+        let chats = snapshot.val()
+        if(chats == null) {
+          chats = {}
+        }
+
+        for(let chatId in chats) {
+          chats[chatId].name = "Loading..."
+          firebase.database().ref('chats').child(chatId).once('value', function (snapshot) {
+            chats[chatId].name = snapshot.val().name
+            context.commit('setChats', chats)
+          })
+        }
       })
     }
   },
   getters: {
-    messages (state) {
-      return state.messages
-    },
     chats (state) {
       return state.chats
     }

@@ -15,7 +15,7 @@
 <script>
   export default{
     created () {
-      this.$store.dispatch('loadChats')
+      this.$store.dispatch('loadUserChats')
     },
     computed: {
       chats () {

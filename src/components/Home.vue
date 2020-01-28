@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import Chats from './Chat/Chats.vue'
+  import Chats from './Chat/parts/Chats.vue'
   export default {
     components: {
       'chats': Chats
