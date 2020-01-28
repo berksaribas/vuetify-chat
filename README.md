@@ -5,7 +5,7 @@ A chat built with Vue + Vuex + Vuetify + Firebase.
 * Basic authentication with Firebase
 * Create chat rooms, join them
 * Use emoji-picker to express your emotions.
-* NEW: Scroll up to load previous messages.
+* Scroll up to load previous messages.
 
 ## Live Demo
 https://mutfak-chat.firebaseapp.com
